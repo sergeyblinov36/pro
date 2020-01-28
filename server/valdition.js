@@ -10,7 +10,7 @@ const regisrerValidation = (data)=>{
         role:joi.string().min(3)
     };
     return joi.validate(data, schema);
-}
+};
 
 const loginValidation = (data)=>{
     const schema={
@@ -18,7 +18,7 @@ const loginValidation = (data)=>{
         password: joi.string().min(6).required()
     };
     return joi.validate(data, schema);
-}
+};
 
 
 const craeteApartmentValidation = (data)=>{
@@ -40,7 +40,7 @@ const craeteApartmentValidation = (data)=>{
 
     };
     return joi.validate(data, schema);
-}
+};
 
 const craeteRequestsValidation = (data)=>{
     const schema={
@@ -54,7 +54,7 @@ const craeteRequestsValidation = (data)=>{
     };
     return joi.validate(data, schema);
 
-}
+};
 
 const profileValidation = (data)=>{
     const schema={
@@ -63,7 +63,7 @@ const profileValidation = (data)=>{
     };
     return joi.validate(data, schema);
 
-}
+};
 
 
 const addRentValidation = (data)=>{
@@ -77,20 +77,20 @@ const addRentValidation = (data)=>{
     };
     return joi.validate(data, schema);
 
-}
+};
 
 const creatPostValidation = (data)=>{
     const schema={
         text: joi.string().min(1).max(50).required(),
     };
     return joi.validate(data, schema);
-}
+};
 
 
-//Validtion functions
+//Validation functions
 module.exports =function validatProfileInput(data){
     data.apartmnts = 'undefined' ? '' : data.apartmnts ;
-}
+};
 
 
 

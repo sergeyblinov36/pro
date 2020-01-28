@@ -25,4 +25,4 @@ users.get('/:userId', (req,res)=> {
 });
 
 
-module.exports =users
+module.exports =users;

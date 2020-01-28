@@ -1,11 +1,11 @@
 const express= require('express');
 const profile = express.Router();
 const control = require('../controller/Profile');
-const vertify = require('../config/verifyToken');
+const verify = require('../config/verifyToken');
 
-//Most parivte - user must be login . 
+//Most private - user must be login .
 
-profile.get('/',vertify, (req,res)=>{
+profile.get('/',verify, (req,res)=>{
     control.profileUser(req,res);
 });
 
@@ -17,25 +17,25 @@ profile.get('/all/', (req,res)=>{
     control.getAllProfile(req,res);
 });
 
-profile.post('/',vertify, (req,res)=>{
+profile.post('/',verify, (req,res)=>{
     control.createProfile(req,res);
 });
 
-profile.put('/',vertify, (req,res)=>{
+profile.put('/',verify, (req,res)=>{
     control.updeateProfile(req,res);
 });
 
 
-profile.post('/myRentals/add', vertify, (req,res)=>{
+profile.post('/myRentals/add', verify, (req,res)=>{
     control.myReantalAdd(req,res);
 });
 
-profile.delete('/myRentals/deleteOne/:rentId', vertify, (req,res)=>{
+profile.delete('/myRentals/deleteOne/:rentId', verify, (req,res)=>{
     control.myReantalDelete(req,res);
 });
 
-profile.delete('/deleteUser', vertify, (req,res)=>{
+profile.delete('/deleteUser', verify, (req,res)=>{
     control.Deleteuser(req,res);
 });
 
-module.exports =profile
+module.exports =profile;

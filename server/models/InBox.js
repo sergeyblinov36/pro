@@ -1,7 +1,7 @@
 const mongoose =require('mongoose');
 const { Schema, model } = require('mongoose');
 
-//this schama is semiler to Posts . handal privat messgas between users and landlords
+//this schema is similar to Posts . handle private messages between users and landlords
 const InBoxSchema = new Schema({
     title:{type:String},
     subtitle :{type: String}, 

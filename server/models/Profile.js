@@ -4,7 +4,7 @@ const { Schema, model } = require('mongoose');
 const ProfileSchema = new Schema({
     _id : mongoose.Schema.Types.ObjectId,
     user: {type: mongoose.Schema.Types.ObjectId, ref:'Users'},
-    apartmnts: [{ apartmnt: {type:mongoose.Schema.Types.ObjectId, ref:'Apartments'} }], //list of my apartmrnts Or list of my favorits
+    apartmnts: [{ apartmnt: {type:mongoose.Schema.Types.ObjectId, ref:'Apartments'} }], //list of my apartments Or list of my favorites
 
     loction: {type: String},
     status: { type: String  } ,
@@ -19,7 +19,7 @@ const ProfileSchema = new Schema({
             leftCose: {type: String},
             current: {type: String}
          }
-    ], /// if im owner my history rants , if im user history rantal hoses i've been in  .
+    ], /// if im owner my history rents , if im user history rental houses i've been in  .
     
     aboutMe: 
     {

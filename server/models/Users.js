@@ -8,7 +8,7 @@ const UserSchema = new Schema({
     email: { type: String, required: true } , 
     avatar: {type: String},
     password: { type: String, required:true  } ,
-    role: {type:String, required: true , enum: ["user", "owner"]}, //user or owner -cnat be both. difine who is the user 
+    role: {type:String, required: true , enum: ["user", "owner"]}, //user or owner -cant be both. define who is the user
     id_token: { type: String, unique: true }, // id user from google login
     date: { type: Date, default: Date.now},
 }, { collection: 'users' });

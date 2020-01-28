@@ -1,10 +1,10 @@
 const express= require('express');
 const posts = express.Router();
 const control = require('../controller/Posts');
-const vertify = require('../config/verifyToken');
+const verify = require('../config/verifyToken');
 
 
-posts.post('/', vertify ,  (req,res) =>{
+posts.post('/', verify ,  (req,res) =>{
     control.createPost(req,res);
 });
 
@@ -29,23 +29,23 @@ posts.get('/apartment/:apartmntId' ,(req,res)=>{
 });
 
 
-posts.delete('/:postId' ,vertify,(req,res)=>{ 
+posts.delete('/:postId' ,verify,(req,res)=>{
     control.deletePost(req,res);
 });
 
-posts.post('/like/:postId' ,vertify,(req,res)=>{ 
+posts.post('/like/:postId' ,verify,(req,res)=>{
     control.likePost(req,res);
 });
 
-posts.post('/unlike/:postId' ,vertify,(req,res)=>{ 
+posts.post('/unlike/:postId' ,verify,(req,res)=>{
     control.unlikePost(req,res);
 });
 
-posts.post('/comment/:postId' ,vertify,(req,res)=>{ 
+posts.post('/comment/:postId' ,verify,(req,res)=>{
     control.commentPost(req,res);
 });
 
-posts.post('/star' ,vertify,(req,res)=>{ 
+posts.post('/star' ,verify,(req,res)=>{
     control.starIt(req,res);
 });
 

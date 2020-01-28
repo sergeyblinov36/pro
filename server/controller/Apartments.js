@@ -10,18 +10,18 @@ class ApartmentController {
     static async craeteApartment(req,res){
         console.log(req.body.openHouse);
          try{
-            //validat the data befor create
-            //const {error} =  craeteApartmentValidation(req.body);
+            //validate the data before create
+            //const {error} =  createApartmentValidation(req.body);
             //if(error)
             //    return res.status(400).send(error.details[0].message);
 
-            //chacking if the apartment is alrdy in the DB
+            //checking if the apartment is already in the DB
             const apartmentExist = await Apartment.findOne({address: req.body.address ,apartmentNum:req.body.apartmentNum});
             if(apartmentExist)
                return res.status(402).send({message: 'Apartment allrady exists'});
 
             //create a new user
-            const today=new Date()
+            const today=new Date();
             let apartmntData = new Apartment({ 
                 _id: new mongoose.Types.ObjectId(),
                 city: req.body.city,
@@ -43,14 +43,14 @@ class ApartmentController {
                 }
             });
             if(apartmntData){
-                const saveApartment= await apartmntData.save().then(t => t.populate('owner', 'first_name last_name email').execPopulate()) 
+                const saveApartment= await apartmntData.save().then(t => t.populate('owner', 'first_name last_name email').execPopulate());
                 res.status(200).send({
                     message: 'Apartment created',
                     apartment: saveApartment
                 });
 
             } 
-            else res.status(401).send({message: 'Something went wrong craetig apartment'});
+            else res.status(401).send({message: 'Something went wrong creating apartment'});
         }
         catch (err) {
             console.error( 'some error occurred', err) 
@@ -61,8 +61,8 @@ class ApartmentController {
     //update without arrays:
     static async editeApartment2(req,res){
         try{
-            //Udete     
-            //Do it in if stats becouse i dont want to require fildes. if it cames from user so i set it. 
+            //Update
+            //Do it in if stats because i dont want to require fields. if it comes from user so i set it.
             const apartmentFileds = {};
             apartmentFileds.owner= req.user._id;
             if(req.body.city) apartmentFileds.city=req.body.city;
@@ -80,7 +80,7 @@ class ApartmentController {
             if(req.body.pats) apartmentFileds.pats=req.body.pats;
             if(req.body.status) apartmentFileds.desciption=req.body.status;
 
-            //objects of fildes
+            //objects of fields
             apartmentFileds.openHouse ={};
             if(req.body.open) apartmentFileds.openHouse.open=req.body.open;
             if(req.body.public) apartmentFileds.openHouse.public=req.body.public;
@@ -92,7 +92,7 @@ class ApartmentController {
             const upadtUser = await Apartment.findOneAndUpdate(
                 {_id: req.params.apartmentId} ,
                 {$set:apartmentFileds //{
-                    //apartmentFileds , "openHouse.invated" : req.body.invated
+                    //apartmentFields , "openHouse.invited" : req.body.invited
                     //}   
                 }, 
                 {new: true},
@@ -123,13 +123,13 @@ class ApartmentController {
             const openHome = await Apartment.findById(req.params.apartmentId)
             if (!openHome)
                 return res.status(404).send({message: 'Apartment not found'});
-                //need to chack if userId allrady in the array but i have only his id and nothing about him to commper ........what to do....  
+                //need to check if userId already in the array but i have only his id and nothing about him to compare ........what to do....
             else
                 //Add user id to array
                 openHome.invated.unshift({ user: req.params.userId });
-                openHome.save()
+                openHome.save();
                 
-                ///set a requst to user whos invaited:    
+                ///set a request to user who's invited:
                  const requst =new Requests({
                      _id: new mongoose.Types.ObjectId(),
                      apartmnt: req.params.apartmentId,
@@ -138,12 +138,12 @@ class ApartmentController {
                      purpose: 'invation',
                      status: 'invited'
                  });
-                // //save in DB the requst
-                await requst.save().then(t => t.populate('sending resiving', 'first_name last_name').execPopulate()) 
+                // //save in DB the request
+                await requst.save().then(t => t.populate('sending receiving', 'first_name last_name').execPopulate())
                 
                 .then(openHome=> res.status(200).send({message: 'User has added to the Invites open House'}));
         }catch (err) {
-            console.error( 'some error occurred', err) 
+            console.error( 'some error occurred', err);
             res.status(500).send(err.message); 
         }         
     }
@@ -163,9 +163,9 @@ class ApartmentController {
                 console.log(currrApr)
 
 
-                //chack if apartment is open house       
+                //check if apartment is open house
                 if (currrApr.openHouse.open && currrApr.openHouse.public){ //if both true
-                    //chack if user id arllrady sing himself 
+                    //check if user id already sing himself
                     if (currrApr.usersCamming.filter( usersCamming => String(usersCamming.user) == String(req.user._id) ).length  > 0 ) 
                         return res.status(400).send({message: 'User allrady sign to open house' });  
                             
@@ -177,7 +177,7 @@ class ApartmentController {
                 return res.status(404).send({message: 'Apartment didnt defiend as a openHouse , cnat sign in !'});
         
         }catch (err) {
-            console.error( 'some error occurred', err) 
+            console.error( 'some error occurred', err);
             res.status(500).send(err.message); 
         }         
     }

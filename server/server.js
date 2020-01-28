@@ -1,13 +1,13 @@
-var express=require('express');
-var bodyParser =require('body-parser');
-var app= express();
-var mongoose = require('mongoose');
+const express = require('express');
+const bodyParser = require('body-parser');
+const app = express();
+const mongoose = require('mongoose');
 const morgan = require('morgan');
 const session =require('express-session');
 const dotenv = require('dotenv');
 dotenv.config();
 
-var port = process.env.PORT || 5000;
+const port = process.env.PORT || 5000;
 
 //Middleware
 app.use(morgan('dev'));
@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended:false
 }));
-//middlware for otherzation from server to client: To privent cors() errors
+//middleware for otherzation from server to client: To prevent cors() errors
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header(
@@ -27,7 +27,7 @@ app.use((req, res, next) => {
 })
 
 
-//Conect to DB
+//Connect to DB
 const url= process.env.DB_CONECT;
 const options ={ useNewUrlParser: true, useCreateIndex: true}
 
@@ -38,11 +38,11 @@ mongoose
 
 
 //Routs Middlewares
-var Users = require('./routes/Users');
-var Apartments = require('./routes/Apartments');
-var Requests = require('./routes/Requests');
-var Posts = require('./routes/Posts');
-var Profile =require('./routes/Profile');
+const Users = require('./routes/Users');
+const Apartments = require('./routes/Apartments');
+const Requests = require('./routes/Requests');
+const Posts = require('./routes/Posts');
+const Profile = require('./routes/Profile');
 app.use('/users', Users);
 app.use('/profile', Profile);
 app.use('/apartments', Apartments);
@@ -53,9 +53,9 @@ app.use('/posts', Posts);
 app.listen(port, () => console.log('Server is running on port ', port));
 
 
-  /*Errors langh for this project : 
+  /*Errors length for this project :
   * 400 -  validation errors
   * 401 - some thing went with data
-  * 402 - alrady exists
+  * 402 - already exists
   * 404 - not found
   */
