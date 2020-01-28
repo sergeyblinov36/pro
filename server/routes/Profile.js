@@ -3,33 +3,33 @@ const profile = express.Router();
 const control = require('../controller/Profile');
 const vertify = require('../config/verifyToken');
 
-profile.get('/', (req,res)=>{
-    control.getAllProfile(req,res);
-});
+//Most parivte - user must be login . 
 
-//id means user id in all mathods
-profile.get('/:id', (req,res)=>{
+profile.get('/',vertify, (req,res)=>{
     control.profileUser(req,res);
 });
 
-profile.post('/create-update/:id', (req,res)=>{
+profile.get('/user/:userId', (req,res)=>{
+    control.profileUserById(req,res);
+});
+
+profile.get('/all/', (req,res)=>{
+    control.getAllProfile(req,res);
+});
+
+profile.post('/',vertify, (req,res)=>{
     control.createProfile(req,res);
 });
 
-//profile.put('/edite/:id', (req,res)=>{
-//    control.editeProfile(req,res);
-//});
-
-
-profile.delete('/remove/:id', (req,res)=>{
-    control.removeProfile(req,res);
+profile.put('/',vertify, (req,res)=>{
+    control.updeateProfile(req,res);
 });
 
-//praivte
+
 profile.post('/myRentals/add', vertify, (req,res)=>{
     control.myReantalAdd(req,res);
 });
-//praivte
+
 profile.delete('/myRentals/deleteOne/:rentId', vertify, (req,res)=>{
     control.myReantalDelete(req,res);
 });

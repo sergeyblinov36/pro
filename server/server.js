@@ -26,16 +26,6 @@ app.use((req, res, next) => {
     next();
 })
 
-//Middleware for express sessin -copy from npm:will use it in the fronted only  
-app.use(session({
-  //store: new RedieStor({}),
-  name:'session-id',
-  secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: false,
-  //cookie: { secure: true }
-}))
-
 
 //Conect to DB
 const url= process.env.DB_CONECT;
@@ -45,7 +35,6 @@ mongoose
   .connect(url, options)
   .then(()=> console.log("MongoDB connected"))
   .catch(err => console.log(err))
-
 
 
 //Routs Middlewares
@@ -62,3 +51,11 @@ app.use('/posts', Posts);
 
 //Listening on port 
 app.listen(port, () => console.log('Server is running on port ', port));
+
+
+  /*Errors langh for this project : 
+  * 400 -  validation errors
+  * 401 - some thing went with data
+  * 402 - alrady exists
+  * 404 - not found
+  */

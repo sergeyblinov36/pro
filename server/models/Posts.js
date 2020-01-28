@@ -3,13 +3,15 @@ const { Schema, model } = require('mongoose');
 
 const PostSchema = new Schema({
     user :{ type: mongoose.Schema.Types.ObjectId, ref: 'Users', required: true },
-    aprtment: {type: mongoose.Schema.Types.ObjectId, ref: 'Apartments', required: true},
+    aprtment: {type: mongoose.Schema.Types.ObjectId, ref: 'Apartments'},
     text: {type:String, required:true},
     first_name: {type:String},
     avatar: {type:String},
 
     star: [{
+        aprtment: {type: mongoose.Schema.Types.ObjectId, ref: 'Apartments'},
         user :{ type: mongoose.Schema.Types.ObjectId, ref: 'Users', required: true },
+        value: {type:Number}
     }], //for ranc the apartment by user
 
     likes:[{

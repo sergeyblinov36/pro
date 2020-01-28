@@ -25,11 +25,18 @@ const craeteApartmentValidation = (data)=>{
     const schema={
         city: joi.string().min(3).required(),
         address: joi.string().min(3).required(),
-        priceFrom: joi.number().min(2).required(),
-        priceTo: joi.number().min(2).required(),
+        price: joi.number().min(2).required(),
         rooms: joi.number().min(1).required(),
-        owner: joi.string().required(),
+        owner: joi.string(),
         apartmentNum: joi.number().required(),
+        status: joi.string(),
+        pats: joi.string(),
+        parcking: joi.string(),
+        neebrhood: joi.string(),
+        saftyChack: joi.string(),
+        desciption: joi.string(),
+        loftSize: joi.string(),
+        openHouse : joi.json()
 
     };
     return joi.validate(data, schema);
@@ -38,9 +45,12 @@ const craeteApartmentValidation = (data)=>{
 const craeteRequestsValidation = (data)=>{
     const schema={
         apartmnt: joi.string().required(),
-        who: joi.string().required(),
-        owner: joi.string().required(),
-        purpose: joi.string().required()
+        resiving: joi.string().required(),
+        purpose: joi.string().required(),
+        text: joi.string(),
+        status: joi.string()
+     
+
     };
     return joi.validate(data, schema);
 
@@ -74,6 +84,12 @@ const creatPostValidation = (data)=>{
         text: joi.string().min(1).max(50).required(),
     };
     return joi.validate(data, schema);
+}
+
+
+//Validtion functions
+module.exports =function validatProfileInput(data){
+    data.apartmnts = 'undefined' ? '' : data.apartmnts ;
 }
 
 

@@ -16,8 +16,12 @@ users.get('/logout/:email', (req,res)=> {
     control.logoutUser(req,res);
 });
 
-users.get('/', (req,res)=>{
+users.get('/', (req,res)=> {
     control.getAllUsers(req,res);
+});
+
+users.get('/:userId', (req,res)=> {
+    control.getUserById(req,res);
 });
 
 

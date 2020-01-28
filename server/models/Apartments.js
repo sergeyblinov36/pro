@@ -4,11 +4,19 @@ const { Schema, model } = require('mongoose');
 
 const ApartmentSchema = new Schema({
     _id : mongoose.Schema.Types.ObjectId,
-    owner :{ type: mongoose.Schema.Types.ObjectId, ref: 'Users', required: true},//owner must fill his id 
-    rentTO: {type: mongoose.Schema.Types.ObjectId, ref: 'Users'},
+    owner: {type: mongoose.Schema.Types.ObjectId, ref: 'Users'},
+    requsts: [
+        {reqId: {type: mongoose.Schema.Types.ObjectId, ref: 'Requests'}
+    }],
+    //star: [{
+    //    user :{ type: mongoose.Schema.Types.ObjectId, ref: 'Users', required: true },
+    //    value: {type:Number}
+
+    //}], //for ranc the apartment by user
 
     city:{type:String},
     address :{type: String},
+    price:{type: Number},
     apartmentNum: {type: Number},
     priceFrom :{ type: Number },
     priceTo :{ type: Number },
@@ -19,21 +27,28 @@ const ApartmentSchema = new Schema({
     desciption: {type:String},
     rooms: {type:Number},
     loftSize: {type:Number},
-    schools: [{type:String}],
+    pats: {type: String, enum: ["notAllow", "allow", "onlyCats", "smallPats"] },
     date: { type: Date, default: Date.now},
-    openHouse: {
+    //requst: [{ reqId: {type: mongoose.Schema.Types.ObjectId, ref: 'Requests'}}],
+    openHouse:{
         open:{type: Boolean}, 
-        date: {type: Date},
+        public: {type: Boolean},
+        date: {type: String},
         houre: {type: String},
     }, 
-    numOfIntrested: {type: Number},
-    status: {type: String}, //apartmet is alivlibal or ocupied 
-    x: {type: String}, //this is for google maps - will be defind only in the view - client will chose dot on map
-    y: {type: String}
+    openANDpublic: {type: Boolean ,default: false}, //need it for the search matode becose cant find inner object in find({})
 
-    //postID :{ type: mongoose.Schema.Types.ObjectId, ref: 'Post'},
-    //myInBox: [{type: mongoose.Schema.Types.ObjectId, ref: 'InBox'}],
-    //star:{type:Number} //get this from all users in Post schema
+    invated: [{
+        user: {type: mongoose.Schema.Types.ObjectId, ref: 'Users'}
+    }],
+    usersCamming:[{
+        user: {type: mongoose.Schema.Types.ObjectId, ref: 'Users'}
+    }] ,//only when open is true.... user can sign thenself
+
+    status: {type: String ,enum: ["available", "ocupied"]}, 
+    x: {type: String}, //this is for google maps - will be defind only in the view - client will chose dot on map
+    y: {type: String},
+
 }, { collection: 'aprtments' });
 
 
